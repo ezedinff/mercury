@@ -1,0 +1,14 @@
+FROM elixir:1.6
+MAINTAINER Abenezer yakob
+RUN apt-get update && apt-get install --yes postgresql-client \
+&& wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb \
+&& dpkg -i erlang-solutions_1.0_all.deb \  
+&& wget http://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc \  
+&& apt-get update \  
+&& apt-get install --yes esl-erlang  
+RUN mix local.hex --force
+RUN mix local.rebar
+RUN mix archive.install --force https://github.com/phoenixframework/archives/raw/master/phx_new.ez
+WORKDIR /app
+EXPOSE 4000
+CMD ["./run.sh"]

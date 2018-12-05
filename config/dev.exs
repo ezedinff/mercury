@@ -59,7 +59,8 @@ config :mercury, Mercury.Repo,
   password: "postgres",
   database: "mercury_dev",
   hostname: "localhost",
-  pool_size: 10
+  pool_size: 10,
+  port: 5432
 
 # Configure Guardian secret key
 config :mercury, MercuryWeb.Guardian,

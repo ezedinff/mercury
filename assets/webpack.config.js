@@ -1,6 +1,6 @@
 const { resolve } = require('path');
 
-const publicPath = 'http://localhost:3000/'; 
+const publicPath = 'http://0.0.0.0:3000/'; 
 const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const OpenBrowserPlugin = require('open-browser-webpack-plugin');
@@ -18,7 +18,7 @@ const config = {
     'react-hot-loader/patch',
     // activate HMR for React
 
-    'webpack-dev-server/client?http://localhost:3000',
+    'webpack-dev-server/client?http://0.0.0.0:3000',
     // bundle the client for webpack-dev-server
     // and connect to the provided endpoint
 
@@ -62,7 +62,7 @@ const config = {
   mode: 'development',
 
   devServer: {
-    host: 'localhost',
+    host: '0.0.0.0',
     port: 3000,
     headers: {
       'Access-Control-Allow-Origin': '*',
@@ -138,7 +138,7 @@ const config = {
     // do not emit compiled assets that include errors
 
     new CopyWebpackPlugin([{ from: 'vendors', to: 'vendors' }]),
-    new OpenBrowserPlugin({ url: 'http://localhost:4000' }),
+    new OpenBrowserPlugin({ url: 'http://0.0.0.0:4000' }),
 
     // new ExtractCssChunks(
     //     {

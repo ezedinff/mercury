@@ -10,7 +10,7 @@
     <title>Mercury</title>
 
     <%= if Mix.env == :dev do %>
-    <link crossorigin rel="stylesheet" href="http://localhost:3000/css/style.css">
+    <link crossorigin rel="stylesheet" href="http://0.0.0.0:3000/css/style.css">
     <% else %>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/style.css") %>">
     <% end %>
@@ -19,7 +19,7 @@
   <body>
     <div id="root"></div>
     <%= if Mix.env == :dev do %>
-      <script crossorigin src='http://localhost:3000/js/app.js'></script>
+      <script crossorigin src='http://0.0.0.0:3000/js/app.js'></script>
     <% else %>
       <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
     <% end %>
