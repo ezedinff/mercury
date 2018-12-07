@@ -10,8 +10,9 @@ config :mercury, MercuryWeb.Endpoint,
   http: [port: 4000],
   debug_errors: true,
   code_reloader: true,
-  check_origin: false,
-  watchers: [node: ["node_modules/webpack-dev-server/bin/webpack-dev-server.js", "--colors", "--stdin", cd: Path.expand("../assets", __DIR__)]]
+  check_origin: false
+  #watchers: [node: ["node_modules/webpack-dev-server/bin/webpack-dev-server.js", "--colors", "--stdin", cd: Path.expand("../assets", __DIR__)]]
+  #watchers: [node: ["node_modules/webpack-dev-server/bin/webpack-dev-server.js", "--colors", "--stdin", cd: Path.expand("../assets", __DIR__)]]
 
   # Not working in windows because of npm permission issue
   # watchers: [npm: ["run", "start", cd: Path.expand("../assets", __DIR__)]]
@@ -58,8 +59,8 @@ config :mercury, Mercury.Repo,
   username: "postgres",
   password: "postgres",
   database: "mercury_dev",
-  hostname: "localhost",
-  pool_size: 10,
+  hostname: "db",
+  pool_size: 2,
   port: 5432
 
 # Configure Guardian secret key

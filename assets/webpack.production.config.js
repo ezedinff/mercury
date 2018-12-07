@@ -7,12 +7,21 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 const config = {
-  devtool: 'cheap-module-source-map',
+  // devtool: 'cheap-module-source-map',
+  // devtool: false,
+  devtool: false,
+  mode: 'production',
+
 
   entry: [
     './main.js',
     './assets/scss/index.scss',
   ],
+  performance: {
+    hints: false,
+    maxEntrypointSize: 512000,
+    maxAssetSize: 512000
+  },
 
   context: resolve(__dirname, 'app'),
 

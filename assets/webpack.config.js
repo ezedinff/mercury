@@ -1,6 +1,6 @@
 const { resolve } = require('path');
 
-const publicPath = 'http://0.0.0.0:3000/'; 
+const publicPath = 'http://localhost:3000/';
 const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const OpenBrowserPlugin = require('open-browser-webpack-plugin');
@@ -11,14 +11,15 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 
 const config = {
-  devtool: 'cheap-module-eval-source-map',
+  //devtool: 'cheap-module-eval-source-map',
   // devtool: 'inline-source-map',
+  devtool:false,
 
   entry: [
     'react-hot-loader/patch',
     // activate HMR for React
 
-    'webpack-dev-server/client?http://0.0.0.0:3000',
+    'webpack-dev-server/client?http://localhost:3000',
     // bundle the client for webpack-dev-server
     // and connect to the provided endpoint
 
@@ -51,10 +52,10 @@ const config = {
   output: {
     filename: 'js/app.js',
     path: resolve(__dirname, '../priv/static'),
-    publicPath: publicPath,
+    publicPath,
     hotUpdateChunkFilename: 'hot-update.js',
     hotUpdateMainFilename: 'hot-update.json',
-    crossOriginLoading: "anonymous",
+    crossOriginLoading: 'anonymous',
   },
 
   context: resolve(__dirname, 'app'),
@@ -62,7 +63,7 @@ const config = {
   mode: 'development',
 
   devServer: {
-    host: '0.0.0.0',
+    host: 'localhost',
     port: 3000,
     headers: {
       'Access-Control-Allow-Origin': '*',
@@ -138,7 +139,7 @@ const config = {
     // do not emit compiled assets that include errors
 
     new CopyWebpackPlugin([{ from: 'vendors', to: 'vendors' }]),
-    new OpenBrowserPlugin({ url: 'http://0.0.0.0:4000' }),
+    new OpenBrowserPlugin({ url: 'http://localhost:4000' }),
 
     // new ExtractCssChunks(
     //     {
