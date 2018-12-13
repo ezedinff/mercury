@@ -45,7 +45,8 @@ defmodule Mercury.Mixfile do
       {:comeonin, "~> 4.1"},
       {:bcrypt_elixir, "~> 1.1"},
       {:plug_cowboy, "~> 1.0"},
-      {:guardian, "~> 1.1"}
+      {:guardian, "~> 1.1"},
+      {:uuid, "~> 1.1"}
     ]
   end
 

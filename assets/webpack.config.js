@@ -1,72 +1,72 @@
-const { resolve } = require('path');
+const { resolve } = require("path");
 
-const publicPath = 'http://localhost:3000/';
-const webpack = require('webpack');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const OpenBrowserPlugin = require('open-browser-webpack-plugin');
+const publicPath = "http://localhost:3000/";
+const webpack = require("webpack");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
+const OpenBrowserPlugin = require("open-browser-webpack-plugin");
+
+const { styles } = require("@ckeditor/ckeditor5-dev-utils");
 
 // const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 // const ExtractCssChunks = require("extract-css-chunks-webpack-plugin")
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 const config = {
-  //devtool: 'cheap-module-eval-source-map',
+  devtool: "cheap-module-eval-source-map",
   // devtool: 'inline-source-map',
-  devtool:false,
+  // devtool:false,
 
   entry: [
-    'react-hot-loader/patch',
+    "react-hot-loader/patch",
     // activate HMR for React
 
-    'webpack-dev-server/client?http://localhost:3000',
+    "webpack-dev-server/client?http://localhost:3000",
     // bundle the client for webpack-dev-server
     // and connect to the provided endpoint
 
-    'webpack/hot/only-dev-server',
+    "webpack/hot/only-dev-server",
     // bundle the client for hot reloading
     // only- means to only hot reload for successful updates
- 
-    './main.js',
+
+    "./main.js",
     // entry point
 
-    './assets/scss/index.scss',
-    'jquery/dist/jquery.js',
-    'tether/dist/js/tether.js',
-    'bootstrap/dist/js/bootstrap.js',
+    "./assets/scss/index.scss",
+    "jquery/dist/jquery.js",
+    "tether/dist/js/tether.js",
+    "bootstrap/dist/js/bootstrap.js"
   ],
 
   resolve: {
     alias: {
-      components: resolve(__dirname, 'app/components/index.js'),
-      reducers: resolve(__dirname, 'app/reducers'),
-      actions: resolve(__dirname, 'app/actions'),
-      config: resolve(__dirname, 'app/config'),
-      store: resolve(__dirname, 'app/store'),
-      utils: resolve(__dirname, 'app/utils'),
-      sagas: resolve(__dirname, 'app/sagas'),
-    },
+      components: resolve(__dirname, "app/components/index.js"),
+      reducers: resolve(__dirname, "app/reducers"),
+      actions: resolve(__dirname, "app/actions"),
+      config: resolve(__dirname, "app/config"),
+      store: resolve(__dirname, "app/store"),
+      utils: resolve(__dirname, "app/utils"),
+      sagas: resolve(__dirname, "app/sagas")
+    }
   },
-
 
   output: {
-    filename: 'js/app.js',
-    path: resolve(__dirname, '../priv/static'),
+    filename: "js/app.js",
+    path: resolve(__dirname, "../priv/static"),
     publicPath,
-    hotUpdateChunkFilename: 'hot-update.js',
-    hotUpdateMainFilename: 'hot-update.json',
-    crossOriginLoading: 'anonymous',
+    hotUpdateChunkFilename: "hot-update.js",
+    hotUpdateMainFilename: "hot-update.json",
+    crossOriginLoading: "anonymous"
   },
 
-  context: resolve(__dirname, 'app'),
+  context: resolve(__dirname, "app"),
 
-  mode: 'development',
+  mode: "development",
 
   devServer: {
-    host: 'localhost',
+    host: "localhost",
     port: 3000,
     headers: {
-      'Access-Control-Allow-Origin': '*',
+      "Access-Control-Allow-Origin": "*"
     },
     hot: true,
     // enable HMR on the server
@@ -74,32 +74,32 @@ const config = {
     historyApiFallback: true,
     // respond to 404s with index.html
 
-    contentBase: resolve(__dirname, '../priv/static'),
-    publicPath: '/',
+    contentBase: resolve(__dirname, "../priv/static"),
+    publicPath: "/",
 
     // overlay: true,
 
     overlay: {
       warnings: true,
-      errors: true,
-    },
+      errors: true
+    }
   },
 
   module: {
     rules: [
       {
         test: /\.js$/,
-        loaders: [
-          'babel-loader',
-        ],
-        exclude: /node_modules/,
+        loaders: ["babel-loader"],
+        exclude: /node_modules/
       },
       {
         test: /\.scss$/, // files ending with .scss
-        use: ['css-hot-loader'].concat(ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: ['css-loader', 'sass-loader'],
-        })),
+        use: ["css-hot-loader"].concat(
+          ExtractTextPlugin.extract({
+            fallback: "style-loader",
+            use: ["css-loader", "sass-loader"]
+          })
+        )
         // use: [
         //   // MiniCssExtractPlugin.loader,
         //   ExtractCssChunks.loader,
@@ -112,22 +112,68 @@ const config = {
         //   use: ['css-loader', 'sass-loader'],
         // })),
       },
-      { test: /\.css$/, loader: ['style-loader', 'css-loader'] },
-      { test: /\.(png|jpg)$/, use: 'url-loader?limit=15000' },
-      { test: /\.svg$/, loader: 'url-loader?limit=65000&mimetype=image/svg+xml&name=fonts/[name].[ext]' },
-      { test: /\.woff$/, loader: 'url-loader?limit=65000&mimetype=application/font-woff&name=fonts/[name].[ext]' },
-      { test: /\.woff2$/, loader: 'url-loader?limit=65000&mimetype=application/font-woff2&name=fonts/[name].[ext]' },
-      { test: /\.[ot]tf$/, loader: 'url-loader?limit=65000&mimetype=application/octet-stream&name=fonts/[name].[ext]' },
-      { test: /\.eot$/, loader: 'url-loader?limit=65000&mimetype=application/vnd.ms-fontobject&name=fonts/[name].[ext]' },
-    ],
+      { test: /\.css$/, loader: ["style-loader", "css-loader"] },
+      { test: /\.(png|jpg)$/, use: "url-loader?limit=15000" },
+      {
+        test: /\.svg$/,
+        loader:
+          "url-loader?limit=65000&mimetype=image/svg+xml&name=fonts/[name].[ext]"
+      },
+      {
+        test: /\.woff$/,
+        loader:
+          "url-loader?limit=65000&mimetype=application/font-woff&name=fonts/[name].[ext]"
+      },
+      {
+        test: /\.woff2$/,
+        loader:
+          "url-loader?limit=65000&mimetype=application/font-woff2&name=fonts/[name].[ext]"
+      },
+      {
+        test: /\.[ot]tf$/,
+        loader:
+          "url-loader?limit=65000&mimetype=application/octet-stream&name=fonts/[name].[ext]"
+      },
+      {
+        test: /\.eot$/,
+        loader:
+          "url-loader?limit=65000&mimetype=application/vnd.ms-fontobject&name=fonts/[name].[ext]"
+      },
+      {
+        test: /\.(gif|jpg|png)$/,
+        loader: "file-loader"
+      },
+      {
+        test: /ckeditor5-[^/\\]+[/\\]theme[/\\]icons[/\\][^/\\]+\.svg$/,
+        use: ["raw-loader"]
+      },
+
+      {
+        test: /ckeditor5-[^/\\]+[/\\]theme[/\\].+\.css/,
+        use: [
+          {
+            loader: "style-loader",
+            options: {
+              singleton: true
+            }
+          },
+          {
+            loader: "postcss-loader",
+            options: styles.getPostCssConfig({
+              minify: true
+            })
+          }
+        ]
+      }
+    ]
   },
 
   plugins: [
     new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery',
-      'window.jQuery': 'jquery',
-      Tether: 'tether',
+      $: "jquery",
+      jQuery: "jquery",
+      "window.jQuery": "jquery",
+      Tether: "tether"
     }),
     new webpack.HotModuleReplacementPlugin(),
     // enable HMR globally
@@ -138,8 +184,8 @@ const config = {
     new webpack.NoEmitOnErrorsPlugin(),
     // do not emit compiled assets that include errors
 
-    new CopyWebpackPlugin([{ from: 'vendors', to: 'vendors' }]),
-    new OpenBrowserPlugin({ url: 'http://localhost:4000' }),
+    new CopyWebpackPlugin([{ from: "vendors", to: "vendors" }]),
+    new OpenBrowserPlugin({ url: "http://localhost:4000" }),
 
     // new ExtractCssChunks(
     //     {
@@ -152,8 +198,12 @@ const config = {
     //       cssModules: true // if you use cssModules, this can help.
     //     }),
     // new MiniCssExtractPlugin({ filename: 'css/style.css', hot: true}),
-    new ExtractTextPlugin({ filename: './css/style.css', disable: false, allChunks: true }),
-  ],
+    new ExtractTextPlugin({
+      filename: "./css/style.css",
+      disable: false,
+      allChunks: true
+    })
+  ]
 };
 
 module.exports = config;

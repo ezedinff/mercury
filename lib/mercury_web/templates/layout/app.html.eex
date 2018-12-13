@@ -8,10 +8,18 @@
     <meta name="author" content="Dmitriy Chernyshov">
 
     <title>Mercury</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"  crossorigin="anonymous">
+
+
 
     <%= if Mix.env == :dev do %>
-    <!--<link crossorigin rel="stylesheet" href="http://localhost:3000/css/style.css">-->
-    <link rel="stylesheet" href="<%= static_path(@conn, "/css/style.css") %>">
+    <link
+  rel="stylesheet"
+  href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css"
+  crossorigin="anonymous"
+>
+    <link crossorigin rel="stylesheet" href="http://localhost:3000/css/style.css">
+    <!--<link rel="stylesheet" href="<%= static_path(@conn, "/css/style.css") %>">-->
     <% else %>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/style.css") %>">
     <% end %>
@@ -20,10 +28,12 @@
   <body>
     <div id="root"></div>
     <%= if Mix.env == :dev do %>
-      <!--<script  crossorigin src='http://localhost:3000/js/app.js'></script>-->
-      <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+      <script  crossorigin src='http://localhost:3000/js/app.js'></script>
+      <script src="https://use.fontawesome.com/72d3d93cda.js"></script>
+      <!--<script src="<%= static_path(@conn, "/js/app.js") %>"></script>--->
     <% else %>
       <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+     // <script src="https://use.fontawesome.com/72d3d93cda.js"></script>
     <% end %>
   </body>
 </html>

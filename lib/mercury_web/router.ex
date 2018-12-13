@@ -43,6 +43,7 @@ defmodule MercuryWeb.Router do
     scope "/" do
       pipe_through(:authorized)
 
+      resources("/projects", ProjectController, except: [:new, :edit])
       delete("/sessions", SessionController, :delete)
       post("/sessions/refresh", SessionController, :refresh)
       resources("/users", UserController, except: [:create])
