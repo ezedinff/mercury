@@ -12,6 +12,9 @@ defmodule Mercury.Accounts.User do
     field(:is_staff, :boolean, default: false)
     field(:is_superuser, :boolean, default: false)
     field(:last_login, :naive_datetime)
+    field(:image_binary, :binary)
+    field(:image_binary_type, :string)
+    field(:image_url, :string)
 
     timestamps()
   end

@@ -2,15 +2,16 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Header from "../Header/index";
-import Project from "../Project";
+import Projects from "../Project";
+import Profile from "../Profile";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Flex, Box, Text } from "rebass";
 
 export class App extends Component {
   render() {
-    const { username } = this.props;
     return (
       <div>
-        <Header />
-        <Project />
+        <Profile />
       </div>
     );
   }

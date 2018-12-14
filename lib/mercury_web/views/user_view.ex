@@ -34,7 +34,10 @@ defmodule MercuryWeb.UserView do
       email: user.email,
       last_login: user.last_login,
       is_staff: user.is_staff,
-      is_superuser: user.is_superuser
+      is_superuser: user.is_superuser,
+      image_binary_type: user.image_binary_type,
+      image_binary: user.image_binary,
+      image_url: user.image_url
     }
   end
 

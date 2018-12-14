@@ -3,7 +3,7 @@
 
 
 #### Install
-elixir, yarn, postgress
+elixir, yarn, postgres
 
 #### Download dependencies
 ```

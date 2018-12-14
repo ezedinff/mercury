@@ -21,8 +21,12 @@ defmodule MercuryWeb.UserController do
   end
 
   def update(conn, %{"id" => id, "user" => user_params}) do
+    IO.puts(".............................................................update")
+
     user = Accounts.get_user!(id)
     current_user = Accounts.get_current_user(conn)
+
+    IO.inspect(user)
 
     with {:ok, %User{} = user} <- Accounts.update_user(user, user_params, current_user) do
       render(conn, "show.json", user: user)

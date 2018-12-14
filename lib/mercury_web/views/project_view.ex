@@ -18,7 +18,10 @@ defmodule MercuryWeb.ProjectView do
       complicity: project.complicity,
       estimated_time: project.estimated_time,
       estimated_progress: project.estimated_progress,
-      user_id: project.user_id
+      user_id: project.user_id,
+      image_binary_type: project.image_binary_type,
+      image_binary: project.image_binary,
+      image_url: project.image_url
     }
   end
 end

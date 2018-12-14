@@ -7,8 +7,9 @@ import { Modal, Button, Form, Row } from "react-bootstrap";
 import { Formik } from "formik";
 import FormExample from "./form";
 import ProjectList from "./projectList";
+import { Flex, Box, Text } from "rebass";
 
-class Project extends React.PureComponent {
+class Projects extends React.PureComponent {
   constructor(props) {
     super(props);
     this.setState({
@@ -33,12 +34,15 @@ class Project extends React.PureComponent {
     console.log(this.state);
     return (
       <div>
-        <Button
-          variant="dark"
-          onClick={() => this.setState({ showModal: true })}
-        >
-          Create new project
-        </Button>
+        <Box m={10}>
+          <Button
+            variant="dark"
+            onClick={() => this.setState({ showModal: true })}
+          >
+            Create new project
+          </Button>
+        </Box>
+
         <FormExample
           show={this.state && this.state.showModal}
           modalClose={modalClose}
@@ -60,4 +64,4 @@ const mapStateProps = state => ({
   user: state.session.currentUser
 });
 
-export default connect(mapStateProps)(Project);
+export default connect(mapStateProps)(Projects);

@@ -1,9 +1,7 @@
-defmodule MyApp.AssetStore do
+defmodule Mercury.AssetStore do
   @moduledoc """
   Responsible for accepting files and uploading them to an asset store.
   """
-
-  alias ExAws.S3
 
   @doc """
   Accepts a base64 encoded image and uploads it to S3.
@@ -27,6 +25,7 @@ defmodule MyApp.AssetStore do
       |> image_extension()
       |> unique_filename()
 
+    IO.inspect(image_base64)
     # Upload to S3
     # S3.put_object(image_bucket, filename, image_binary)
     #  |> ExAws.request()

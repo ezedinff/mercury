@@ -1,15 +1,17 @@
 import React, { Component } from "react";
 import { Nav, Navbar, Button, NavDropdown } from "react-bootstrap";
 import { connect } from "react-redux";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
+import Project from "../Project";
 const Header = () => (
   <div>
-    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-      <Navbar.Brand href="#home">Sweet IT</Navbar.Brand>
+    <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
+      <Navbar.Brand href="/">Sweet IT</Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="mr-auto">
-          <Nav.Link href="#features">Projects</Nav.Link>
+          <Nav.Link href="/projects">Projects</Nav.Link>
           <Nav.Link href="#pricing">Participent</Nav.Link>
           <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
             <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>

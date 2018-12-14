@@ -54,13 +54,14 @@ class FormExample extends React.PureComponent {
       showModal: false,
       projectDescription: "",
       values: null,
-      isValid: false
+      isValid: false,
+      projectImage: null
     });
   }
 
   handleSubmitOnClick = () => {
     const { dispatch, user } = this.props;
-    const { projectDescription, values } = this.state;
+    const { projectDescription, values, projectImage } = this.state;
     console.log(user);
     console.log(
       {
@@ -72,10 +73,26 @@ class FormExample extends React.PureComponent {
     );
     dispatch(
       postProject({
-        project: { ...values, content: projectDescription, user_id: user.id }
+        project: {
+          ...values,
+          content: projectDescription,
+          user_id: user.id,
+          image_binary: projectImage,
+          image_binary_tyep: "64"
+        }
       })
     );
   };
+
+  handelImageUpload(e) {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      console.log("RESULT", reader.result);
+      this.setState({ projectImage: reader.result });
+    };
+    reader.readAsDataURL(file);
+  }
   render() {
     // console.log(this.props, "props");
     // console.log(this.state, "state");
@@ -104,12 +121,12 @@ class FormExample extends React.PureComponent {
               isValid,
               errors
             }) => {
-              console.log(isValid, "isvalid");
+              console.log(values, "values of inputfield");
               this.setState({ values: values });
               return (
                 <Form noValidate onSubmit={this.handleSubmitOnClick}>
                   <Form.Row>
-                    <Form.Group as={Col} controlId="validationFormik01">
+                    <Form.Group as={Col} md="8" controlId="validationFormik01">
                       <Form.Label> Title</Form.Label>
                       <Form.Control
                         size="sm"
@@ -117,6 +134,23 @@ class FormExample extends React.PureComponent {
                         name="title"
                         value={values.title}
                         onChange={handleChange}
+                        isValid={touched.title && !errors.title}
+                        isInvalid={!!errors.title}
+                      />
+                      <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                      <Form.Control.Feedback type="invalid" />
+                    </Form.Group>
+                    <Form.Group as={Col} md="4" controlId="validationFormik01">
+                      <Form.Label> Upload image</Form.Label>
+                      <Form.Control
+                        size="sm"
+                        type="file"
+                        name="image"
+                        onChange={e => {
+                          handleChange;
+                          console.log(e.target.files[0]);
+                          this.handelImageUpload(e);
+                        }}
                         isValid={touched.title && !errors.title}
                         isInvalid={!!errors.title}
                       />
