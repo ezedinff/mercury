@@ -4,6 +4,7 @@ import { Route, Switch } from "react-router";
 import { ConnectedRouter as Router } from "react-router-redux";
 import PropTypes from "prop-types";
 import Sidebar from "react-sidebar";
+import { Button } from "react-bootstrap";
 
 import { authenticate, unauthenticate } from "actions/session";
 import {
@@ -17,18 +18,77 @@ import {
   Header
 } from "components";
 
+const mql = window.matchMedia(`(min-width: 800px)`);
+
 import Projects from "../components/Project";
+import SidBarContent from "../components/Sidebar";
+import Project from "../components/Project/project";
+
+const sidebarStyle = () => ({
+  root: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    overflow: "hidden"
+  },
+  sidebar: {
+    zIndex: 2,
+    position: "absolute",
+    top: 0,
+    bottom: 0,
+    backgroundColor: "white !important",
+    transition: "transform .3s ease-out",
+    WebkitTransition: "-webkit-transform .3s ease-out",
+    willChange: "transform",
+    overflowY: "auto"
+  },
+  content: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    overflowY: "auto",
+    WebkitOverflowScrolling: "touch",
+    transition: "left .3s ease-out, right .3s ease-out"
+  },
+  overlay: {
+    zIndex: 1,
+    position: "fixed",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    opacity: 0,
+    visibility: "hidden",
+    transition: "opacity .3s ease-out, visibility .3s ease-out",
+    backgroundColor: "rgba(0,0,0,.3)"
+  },
+  dragHandle: {
+    zIndex: 1,
+    position: "fixed",
+    top: 0,
+    bottom: 0
+  }
+});
 
 class Root extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      sidebarOpen: false
+      sidebarOpen: false,
+      sidebarDocked: mql.matches
     };
+    this.mediaQueryChanged = this.mediaQueryChanged.bind(this);
     this.onSetSidebarOpen = this.onSetSidebarOpen.bind(this);
   }
   onSetSidebarOpen(open) {
     this.setState({ sidebarOpen: open });
+  }
+  componentWillMount() {
+    mql.addListener(this.mediaQueryChanged);
   }
   componentDidMount() {
     const token = localStorage.getItem("token");
@@ -39,23 +99,50 @@ class Root extends Component {
       this.props.unauthenticate();
     }
   }
+  componentWillUnmount() {
+    mql.removeListener(this.mediaQueryChanged);
+  }
+  mediaQueryChanged() {
+    this.setState({ sidebarDocked: mql.matches, sidebarOpen: false });
+  }
 
   render() {
-    const { isAuthenticated, willAuthenticate } = this.props;
+    const { isAuthenticated, willAuthenticate, history } = this.props;
+    console.log("rooot", this.props);
     const authProps = {
       isAuthenticated,
-      willAuthenticate
+      willAuthenticate,
+      history
     };
 
     return (
       <div className="full-height">
         <Sidebar
-          sidebar={<b>Sidebar content</b>}
+          sidebar={
+            <div>
+              <SidBarContent />
+            </div>
+          }
           open={this.state.sidebarOpen}
           onSetOpen={this.onSetSidebarOpen}
-          styles={{ sidebar: { background: "white" } }}
+          styles={{
+            sidebar: {
+              zIndex: 2,
+              position: "absolute",
+              top: 0,
+              bottom: 0,
+              width: "40%",
+              backgroundColor: "#FFF",
+              transition: "transform .3s ease-out",
+              WebkitTransition: "-webkit-transform .3s ease-out",
+              willChange: "transform",
+              overflowY: "auto"
+            }
+          }}
         >
-          <button onClick={() => this.onSetSidebarOpen(true)}>-></button>
+          <Button onClick={() => this.onSetSidebarOpen(true)} variant="dark">
+            <i class="fas fa-bars" />
+          </Button>
           <ErrorMessage />
           <Router history={this.props.history}>
             <Switch>
@@ -83,6 +170,12 @@ class Root extends Component {
                 component={Projects}
                 {...authProps}
               />
+              <MatchAuthenticated
+                exact
+                path="/projects/:id/"
+                component={Project}
+                {...authProps}
+              />
 
               <Route component={NotFound} />
             </Switch>
@@ -107,7 +200,7 @@ const mapDispatchToProps = dispatch => ({
   unauthenticate: () => dispatch(unauthenticate())
 });
 
-const mapStateProps = state => ({
+const mapStateProps = (state, { id }) => ({
   isAuthenticated: state.session.isAuthenticated,
   willAuthenticate: state.session.willAuthenticate
 });

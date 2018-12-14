@@ -62,7 +62,7 @@
     "react-router-dom": "^4.3.1",
     "react-router-redux": "^5.0.0-alpha.9",
     "react-sidebar": "^3.0.2",
-    "rebass": "^3.0.0-12",
+    "rebass": "^3.0.0",
     "redbox-react": "^1.6.0",
     "redux": "^4.0.1",
     "redux-form": "^7.4.2",

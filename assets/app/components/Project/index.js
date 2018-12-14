@@ -8,6 +8,7 @@ import { Formik } from "formik";
 import FormExample from "./form";
 import ProjectList from "./projectList";
 import { Flex, Box, Text } from "rebass";
+import Sidebar from "react-sidebar";
 
 class Projects extends React.PureComponent {
   constructor(props) {
@@ -27,7 +28,7 @@ class Projects extends React.PureComponent {
     console.log(this.props, "jbljblbljb");
     // console.log(postProject);
 
-    const { dispatch, user } = this.props;
+    const { dispatch, user, history } = this.props;
 
     let modalClose = () => this.setState({ showModal: false });
     //postProject({ project: { title: "test", content: "test conte" } })
@@ -49,7 +50,7 @@ class Projects extends React.PureComponent {
           dispatch={dispatch}
           user={user}
         />
-        <ProjectList />
+        <ProjectList history={history} />
       </div>
     );
   }

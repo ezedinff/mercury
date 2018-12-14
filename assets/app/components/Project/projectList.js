@@ -3,13 +3,27 @@ import { connect } from "react-redux";
 import { ListGroup, Card, Button, ProgressBar } from "react-bootstrap";
 import { Flex, Box, Text } from "rebass";
 import ProfileCard from "../Profile/profileCard";
+import { withRouter } from "react-router-dom";
+import { Route, Switch } from "react-router";
+import { ConnectedRouter as Router } from "react-router-redux";
 
 const getCardImage = image_binary => {
   var image = new Image();
 };
 
-const ProjectItem = ({ project }) => (
-  <Box m={2} key={project.id}>
+const ProjectItem = ({ project, history }) => (
+  <Box
+    m={2}
+    key={project.id}
+    onClick={() => {
+      console.log("clicked");
+      history.push({
+        pathname: "/projects/" + project.id,
+        search: "?query=" + project.id,
+        state: { project: project }
+      });
+    }}
+  >
     <Card border="secondary" style={{ width: "18rem" }}>
       <Card.Header as="h5">
         <Text
@@ -91,15 +105,16 @@ const ProjectItem = ({ project }) => (
 
 class ProjectList extends React.Component {
   render() {
-    const { projects } = this.props;
-    console.log(projects, "projectlist");
+    const { projects, history } = this.props;
+    console.log(projects, this.props, "projectlist");
     return (
       <div>
         <Flex flexWrap="wrap" p={4}>
           {projects &&
-            projects.map(project => <ProjectItem project={project} />)}
+            projects.map(project => (
+              <ProjectItem project={project} history={history} />
+            ))}
         </Flex>
-        ;
       </div>
     );
   }
